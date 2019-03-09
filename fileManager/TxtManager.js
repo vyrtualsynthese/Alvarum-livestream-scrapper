@@ -27,7 +27,7 @@ module.exports = class TxtManager {
                     reject(err);
                     return;
                 }
-                resolve(fileContent);
+                resolve(parseFloat(fileContent));
             })
         });
     }
