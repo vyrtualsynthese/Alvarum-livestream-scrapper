@@ -16,9 +16,10 @@ txtManager.fileOpener()
             return txtManager.fileReader()
         })
 
-
-    // Read previous file state, check if data is maching and populate currentGoal variable to reduce calls.
+    // After initiating app call the timeOut function
     .then(
+
+        // Read previous file state, check if data is maching and populate currentGoal variable to reduce calls.
         (fileContent) => {
             if (isNaN(fileContent)) {
                 currentGoal = 0;
@@ -28,24 +29,23 @@ txtManager.fileOpener()
             }
         })
 
-
     // Use scrapeIt to scrape alvarum raised amount
     .then(
         () => {
-            return scraper.goalScraper();
-        })
+            setInterval(theInfiniteLoop, 60000);
+            theInfiniteLoop();
+        });
 
 
-    .then((data) => {
-        if (data !== currentGoal) {
-            // currentGoal = data;
 
-            txtManager.fileWriter(data)
-        }
-    }
-);
+function theInfiniteLoop () {
 
-//#### This part should run in loop during application execution.
+    scraper.goalScraper()
 
-/*txtManager.fileWriter('Je suis la premiere donation');
-txtManager.fileWriter('Je suis la seconde donation');*/
+    // After scraping check if raised amount changed if so write it into the file.
+        .then((data) => {
+            if (data !== currentGoal) {
+                txtManager.fileWriter(data)
+            }
+        });
+}

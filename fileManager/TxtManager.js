@@ -33,9 +33,13 @@ module.exports = class TxtManager {
     }
 
     fileWriter(donationGoal) {
-        fs.writeFile(donationGoalFile, donationGoal, 'utf8', (err) => {
-            if (err) throw err;
-            console.log('The file has been saved!');
-        });
+        return new Promise ((resolve, reject) => {
+            fs.writeFile(donationGoalFile, donationGoal, 'utf8', (err) => {
+                if (err) throw reject(err);
+                console.log('The file has been saved!');
+                resolve();
+            });
+        })
+
     }
 };
