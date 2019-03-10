@@ -11,15 +11,18 @@ module.exports = class TxtManager {
                     reject(err);
                     return;
                 }
-                const result = fileContent.split(' ');
-                resolve(parseFloat(result[0]));
+                let result = /((?:[0-9]+ ?)+(?:(,|\.)\d+)? €)*/g.exec(fileContent)[0];
+                result = result.replace(' ', '');
+                result = result.replace(',', '.');
+                console.log('Here = ' + result);
+                resolve(parseFloat(result));
             })
         });
     }
 
     async fileWriter(donationRaised, donationGoal) {
         return new Promise ((resolve, reject) => {
-            const myString = `${donationRaised} € / ${donationGoal} € `;
+            const myString = `${donationRaised} / ${donationGoal} € `;
             fs.writeFile(donationGoalFile, myString, 'utf8', (err) => {
                 if (err) throw reject(err);
                 console.log('Current goal set to ' + myString);
