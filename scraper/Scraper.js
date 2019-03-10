@@ -9,7 +9,6 @@ module.exports = class Scraper {
                 amount: ".raised .amount .formattedAmount"
             })
             .then(({ data, response }) => {
-                    console.log(response.statusCode);
                     if (response.statusCode !== 200) {
                         console.log('Unable to reach alvarum');
                         reject();

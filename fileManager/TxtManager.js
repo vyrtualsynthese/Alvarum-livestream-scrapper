@@ -5,7 +5,7 @@ const donationGoalFile = './donationGoal.txt';
 
 module.exports = class TxtManager {
 
-    //useless but I like it !
+/*    //useless but I like it !
     async fileOpener(){
         let filehandle;
         try {
@@ -18,7 +18,7 @@ module.exports = class TxtManager {
                 process.exit(22);
             }
         }
-    };
+    };*/
 
     async fileReader() {
         return new Promise((resolve, reject) => {
@@ -36,7 +36,7 @@ module.exports = class TxtManager {
         return new Promise ((resolve, reject) => {
             fs.writeFile(donationGoalFile, donationGoal, 'utf8', (err) => {
                 if (err) throw reject(err);
-                console.log('The file has been saved!');
+                console.log('Current goal set to ' + donationGoal);
                 resolve();
             });
         })
