@@ -1,0 +1,15 @@
+{
+  "name": "Alvarum-livestream-scrapper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vyrtualsynthese/Alvarum-livestream-scrapper",
+  "author": "vyrtualsynthese",
+  "license": "WTFPL",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "scrape-it": "^5.1.4",
+    "yarn": "^1.13.0"
+  }
+}
