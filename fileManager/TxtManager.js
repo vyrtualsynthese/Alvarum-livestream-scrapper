@@ -1,24 +1,8 @@
 const fs = require('fs');
-const fsPromise = require('fs').promises;
 
 const donationGoalFile = './donationGoal.txt';
 
 module.exports = class TxtManager {
-
-/*    //useless but I like it !
-    async fileOpener(){
-        let filehandle;
-        try {
-            filehandle = await fsPromise.open(donationGoalFile, 'r');
-        } finally {
-            if (filehandle !== undefined) {
-                await filehandle.close();
-            } else {
-                console.log('unable to reach donationGoal.txt');
-                process.exit(22);
-            }
-        }
-    };*/
 
     async fileReader() {
         return new Promise((resolve, reject) => {
@@ -27,19 +11,20 @@ module.exports = class TxtManager {
                     reject(err);
                     return;
                 }
-                resolve(parseFloat(fileContent));
+                const result = fileContent.split(' ');
+                resolve(parseFloat(result[0]));
             })
         });
     }
 
-    fileWriter(donationGoal) {
+    async fileWriter(donationRaised, donationGoal) {
         return new Promise ((resolve, reject) => {
-            fs.writeFile(donationGoalFile, donationGoal, 'utf8', (err) => {
+            const myString = `${donationRaised} € / ${donationGoal} € `;
+            fs.writeFile(donationGoalFile, myString, 'utf8', (err) => {
                 if (err) throw reject(err);
-                console.log('Current goal set to ' + donationGoal);
+                console.log('Current goal set to ' + myString);
                 resolve();
             });
         })
-
     }
 };

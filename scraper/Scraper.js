@@ -2,20 +2,21 @@ const scrapeIt = require("scrape-it");
 
 module.exports = class Scraper {
 
-    async goalScraper() {
-        return new Promise((resolve, reject) => {
-        scrapeIt("http://www.alvarum.com/ashuvidz",
-            {
-                amount: ".raised .amount .formattedAmount"
-            })
-            .then(({ data, response }) => {
-                    if (response.statusCode !== 200) {
-                        console.log('Unable to reach alvarum');
-                        reject();
-                    } else {
-                        resolve(parseFloat(data.amount));
+    async raisedScraper() {
+        let scraped = await scrapeIt("http://www.alvarum.com/ashuvidz", {amount: ".raised .amount .formattedAmount"});
 
-                    }});
-                });
+        if (scraped.response.statusCode !== 200) {
+            throw new Error('Unable to reach alvarum')
+        }
+        return parseFloat(scraped.data.amount);
     };
+
+    async goalScraper() {
+        let scraped = await scrapeIt("http://www.alvarum.com/ashuvidz", {targetAmount: ".target-amount .formattedAmount"});
+
+        if (scraped.response.statusCode !== 200) {
+            throw new Error('Unable to reach alvarum');
+        }
+        return parseFloat(scraped.data.targetAmount);
+    }
 };
