@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "scrape-it": "^5.1.4",
-    "yarn": "^1.17.3"
+    "yarn": "^1.22.0"
   }
 }
